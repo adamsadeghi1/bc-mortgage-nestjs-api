@@ -4,6 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
+
+  const corsOptions = {
+    origin: ['http://localhost:5170'],
+  };
+
   const config = new DocumentBuilder()
     .setTitle('BC Mortgage Apis')
     .setDescription('Bc Mortgage Calculator')
@@ -12,6 +17,7 @@ async function bootstrap() {
     .build();
 
   const app = await NestFactory.create(AppModule);
+  app.enableCors(corsOptions);
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
