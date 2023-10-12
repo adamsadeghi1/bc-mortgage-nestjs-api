@@ -13,18 +13,20 @@ describe('MorgageController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MorgageController],
-      providers: [{
-        provide: MortgageToken,
-        scope: Scope.REQUEST,
-        useFactory: (dataSourceFactory: MortgageFactory) => {
-          return dataSourceFactory.create();
+      providers: [
+        {
+          provide: MortgageToken,
+          scope: Scope.REQUEST,
+          useFactory: (dataSourceFactory: MortgageFactory) => {
+            return dataSourceFactory.create();
+          },
+          inject: [MortgageFactory],
         },
-        inject: [MortgageFactory],
-      },
-      MortgageFactory,
-      MortgageMonthlyService,
-      MortgageBiWeeklyService,
-      MortgageWeeklyService,],
+        MortgageFactory,
+        MortgageMonthlyService,
+        MortgageBiWeeklyService,
+        MortgageWeeklyService,
+      ],
     }).compile();
 
     controller = module.get<MorgageController>(MorgageController);

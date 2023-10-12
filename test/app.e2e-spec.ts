@@ -19,72 +19,67 @@ describe('AppController (e2e)', () => {
 
   it('Should expext weekly mortgage response api/morgage (POST)', async () => {
     const mortgageDto: MortgageDto = {
-      propertyPrice:600000,
+      propertyPrice: 600000,
       downpayment: 35000,
       annualInterestRate: 5.4,
       period: 25,
-      paymentSchedule: PaymentScheduleType.WEEKLY
-  };
+      paymentSchedule: PaymentScheduleType.WEEKLY,
+    };
 
     const res = await request(app.getHttpServer())
       .post('/api/morgage')
       .send(mortgageDto)
       .expect(201);
-    
-    expect(res.body.type).toBe("WEEKLY");
 
+    expect(res.body.type).toBe('WEEKLY');
   });
 
   it('Should expext monthly mortgage response api/morgage (POST)', async () => {
     const mortgageDto: MortgageDto = {
-      propertyPrice:600000,
+      propertyPrice: 600000,
       downpayment: 35000,
       annualInterestRate: 5.4,
       period: 25,
-      paymentSchedule: PaymentScheduleType.MONTHLY
-  };
+      paymentSchedule: PaymentScheduleType.MONTHLY,
+    };
 
     const res = await request(app.getHttpServer())
       .post('/api/morgage')
       .send(mortgageDto)
       .expect(201);
-    
-    expect(res.body.type).toBe("MONTHLY");
 
+    expect(res.body.type).toBe('MONTHLY');
   });
 
   it('Should expext biweekly mortgage response api/morgage (POST)', async () => {
     const mortgageDto: MortgageDto = {
-      propertyPrice:600000,
+      propertyPrice: 600000,
       downpayment: 35000,
       annualInterestRate: 5.4,
       period: 25,
-      paymentSchedule: PaymentScheduleType.BIWEEKLY
-  };
+      paymentSchedule: PaymentScheduleType.BIWEEKLY,
+    };
 
     const res = await request(app.getHttpServer())
       .post('/api/morgage')
       .send(mortgageDto)
       .expect(201);
-    
-    expect(res.body.type).toBe("BIWEEKLY");
+
+    expect(res.body.type).toBe('BIWEEKLY');
   });
-  
+
   it('Should fail when Payment Schedule is not provide api/morgage (POST)', async () => {
     const mortgageDto = {
-      propertyPrice:600000,
+      propertyPrice: 600000,
       downpayment: 35000,
       annualInterestRate: 5.4,
       period: 25,
-      paymentSchedule: ""
-  };
+      paymentSchedule: '',
+    };
 
-    const res = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/api/morgage')
       .send(mortgageDto)
       .expect(400);
   });
-
-
-
 });

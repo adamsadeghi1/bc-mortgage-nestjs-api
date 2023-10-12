@@ -16,10 +16,10 @@ export abstract class MortgageAbstract {
 
   protected getMortgagePrinciple(mortgage: MortgageDto) {
     const result = mortgage.propertyPrice - mortgage.downpayment;
-    if (result<=0)
+    if (result <= 0)
       throw new HttpException(
         `Property price Should be greater than downpayment`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     return mortgage.propertyPrice - mortgage.downpayment;
   }
@@ -39,7 +39,7 @@ export abstract class MortgageAbstract {
 
   protected calculateRemainingBalance(
     mortgage: MortgageDto,
-    numberOfPaymentPast: number
+    numberOfPaymentPast: number,
   ) {
     return (
       (this.getMortgagePrinciple(mortgage) *
@@ -67,7 +67,9 @@ export abstract class MortgageAbstract {
         payPerPeriod: `$${payPerPeriod.toFixed(2)}`,
         paymentNumber: i + 1,
         remainingBalence: `$${remainingBalence.toFixed(2)}`,
-        paidSoFarFromPrinciple: `$${(this.getMortgagePrinciple(mortgage) - remainingBalence).toFixed(2)}`,
+        paidSoFarFromPrinciple: `$${(
+          this.getMortgagePrinciple(mortgage) - remainingBalence
+        ).toFixed(2)}`,
       };
       schedulePayment.push(payment);
     }
@@ -82,9 +84,12 @@ export abstract class MortgageAbstract {
     else return propertyPrice * 0.2;
   }
 
-  protected validateDownPayment(mortgage:MortgageDto){
-    if (mortgage.downpayment < this.getMinDownPaymentRequired(mortgage.propertyPrice))
+  protected validateDownPayment(mortgage: MortgageDto) {
+    if (
+      mortgage.downpayment <
+      this.getMinDownPaymentRequired(mortgage.propertyPrice)
+    )
       return false;
-    return true;    
+    return true;
   }
 }

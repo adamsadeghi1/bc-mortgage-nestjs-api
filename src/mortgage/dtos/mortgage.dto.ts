@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsInt,
   IsNotEmpty,
@@ -7,7 +8,6 @@ import {
   Min,
 } from 'class-validator';
 import { PaymentScheduleType } from '../enum/paymentScheduleType';
-import { ApiBody, ApiProperty } from '@nestjs/swagger';
 
 export class MortgageDto {
   @ApiProperty()

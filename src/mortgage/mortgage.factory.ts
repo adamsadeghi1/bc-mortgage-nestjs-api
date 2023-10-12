@@ -1,8 +1,14 @@
-import { HttpException, HttpStatus, Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  Scope,
+} from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
-import { MortgageMonthlyService } from './services/mortgageMonthly.service';
 import { MortgageBiWeeklyService } from './services/mortgageBiWeekly.service';
+import { MortgageMonthlyService } from './services/mortgageMonthly.service';
 import { MortgageWeeklyService } from './services/mortgageWeekly.service';
 
 @Injectable({ scope: Scope.REQUEST })
@@ -15,10 +21,10 @@ export class MortgageFactory {
   ) {}
 
   create() {
-    if (!this.request.body.paymentSchedule )
+    if (!this.request.body.paymentSchedule)
       throw new HttpException(
         `Invalid payment schedule paymentSchedule shoud be one of these options case-insensitive : weekly| biweekly | monthly `,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     const sourceType = this.request.body;
 
@@ -32,10 +38,8 @@ export class MortgageFactory {
       default:
         throw new HttpException(
           `Invalid payment schedule: ${sourceType.paymentSchedule}. paymentSchedule shoud be one of these options case-insensitive : weekly| biweekly | monthly `,
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         );
     }
   }
-
 }
-
