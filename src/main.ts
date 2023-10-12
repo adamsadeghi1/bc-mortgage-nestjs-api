@@ -5,10 +5,10 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const config = new DocumentBuilder()
-    .setTitle('BC Morgage Apis')
-    .setDescription('Bc Morgage Calculator')
+    .setTitle('BC Mortgage Apis')
+    .setDescription('Bc Mortgage Calculator')
     .setVersion('1.0')
-    .addTag('BC-Morgage')
+    .addTag('BC-Mortgage')
     .build();
 
   const app = await NestFactory.create(AppModule);

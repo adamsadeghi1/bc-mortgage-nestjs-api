@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MorgageController } from './mortgage.controller';
+import { MortgageController } from './mortgage.controller';
 import { MortgageToken } from '../constants/mortgage.constant';
 import { Scope } from '@nestjs/common';
 import { MortgageFactory } from '../mortgage.factory';
@@ -7,12 +7,12 @@ import { MortgageMonthlyService } from '../services/mortgageMonthly.service';
 import { MortgageBiWeeklyService } from '../services/mortgageBiWeekly.service';
 import { MortgageWeeklyService } from '../services/mortgageWeekly.service';
 
-describe('MorgageController', () => {
-  let controller: MorgageController;
+describe('MortgageController', () => {
+  let controller: MortgageController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [MorgageController],
+      controllers: [MortgageController],
       providers: [
         {
           provide: MortgageToken,
@@ -29,7 +29,7 @@ describe('MorgageController', () => {
       ],
     }).compile();
 
-    controller = module.get<MorgageController>(MorgageController);
+    controller = module.get<MortgageController>(MortgageController);
   });
 
   it('should be defined', () => {

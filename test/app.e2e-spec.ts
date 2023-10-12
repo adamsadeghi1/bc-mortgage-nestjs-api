@@ -17,7 +17,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('Should expext weekly mortgage response api/morgage (POST)', async () => {
+  it('Should expext weekly mortgage response api/mortgage (POST)', async () => {
     const mortgageDto: MortgageDto = {
       propertyPrice: 600000,
       downpayment: 35000,
@@ -27,14 +27,14 @@ describe('AppController (e2e)', () => {
     };
 
     const res = await request(app.getHttpServer())
-      .post('/api/morgage')
+      .post('/api/mortgage')
       .send(mortgageDto)
       .expect(201);
 
     expect(res.body.type).toBe('WEEKLY');
   });
 
-  it('Should expext monthly mortgage response api/morgage (POST)', async () => {
+  it('Should expext monthly mortgage response api/mortgage (POST)', async () => {
     const mortgageDto: MortgageDto = {
       propertyPrice: 600000,
       downpayment: 35000,
@@ -44,14 +44,14 @@ describe('AppController (e2e)', () => {
     };
 
     const res = await request(app.getHttpServer())
-      .post('/api/morgage')
+      .post('/api/mortgage')
       .send(mortgageDto)
       .expect(201);
 
     expect(res.body.type).toBe('MONTHLY');
   });
 
-  it('Should expext biweekly mortgage response api/morgage (POST)', async () => {
+  it('Should expext biweekly mortgage response api/mortgage (POST)', async () => {
     const mortgageDto: MortgageDto = {
       propertyPrice: 600000,
       downpayment: 35000,
@@ -61,14 +61,14 @@ describe('AppController (e2e)', () => {
     };
 
     const res = await request(app.getHttpServer())
-      .post('/api/morgage')
+      .post('/api/mortgage')
       .send(mortgageDto)
       .expect(201);
 
     expect(res.body.type).toBe('BIWEEKLY');
   });
 
-  it('Should fail when Payment Schedule is not provide api/morgage (POST)', async () => {
+  it('Should fail when Payment Schedule is not provide api/mortgage (POST)', async () => {
     const mortgageDto = {
       propertyPrice: 600000,
       downpayment: 35000,
@@ -78,7 +78,7 @@ describe('AppController (e2e)', () => {
     };
 
     await request(app.getHttpServer())
-      .post('/api/morgage')
+      .post('/api/mortgage')
       .send(mortgageDto)
       .expect(400);
   });

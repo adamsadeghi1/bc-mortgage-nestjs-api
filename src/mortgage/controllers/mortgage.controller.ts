@@ -5,9 +5,9 @@ import { MortgageDto } from '../dtos/mortgage.dto';
 import { MortgagePayment } from '../dtos/mortgagePayment.dto';
 import { MortgageCalculate } from '../interface/mortgageCalculate.interface';
 
-@ApiTags('BC-Morgage')
-@Controller('api/morgage')
-export class MorgageController {
+@ApiTags('BC-Mortgage')
+@Controller('api/mortgage')
+export class MortgageController {
   constructor(
     @Inject(MortgageToken)
     private readonly mortgageCalculate: MortgageCalculate,
@@ -20,7 +20,7 @@ export class MorgageController {
     type: MortgagePayment,
     isArray: false,
   })
-  calculateMorgage(@Body() mortgageDto: MortgageDto) {
+  calculateMortgage(@Body() mortgageDto: MortgageDto) {
     return this.mortgageCalculate.runCalculation(mortgageDto);
   }
 }

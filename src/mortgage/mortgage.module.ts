@@ -1,5 +1,5 @@
 import { Module, Scope } from '@nestjs/common';
-import { MorgageController } from './controllers/mortgage.controller';
+import { MortgageController } from './controllers/mortgage.controller';
 import { MortgageFactory } from './mortgage.factory';
 import { MortgageMonthlyService } from './services/mortgageMonthly.service';
 import { MortgageToken } from './constants/mortgage.constant';
@@ -8,7 +8,7 @@ import { MortgageWeeklyService } from './services/mortgageWeekly.service';
 
 @Module({
   imports: [],
-  controllers: [MorgageController],
+  controllers: [MortgageController],
   providers: [
     {
       provide: MortgageToken,
