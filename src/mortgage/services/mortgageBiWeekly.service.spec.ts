@@ -2,9 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MortgageAbstract } from './mortgage.abstract';
 import { MortgageDto } from '../dtos/mortgage.dto';
 import { PaymentScheduleType } from '../enum/paymentScheduleType';
-import { MortgageAbstractMock } from './MortgageAbstractMock.abstact.mock';
 import { MortgageBiWeeklyService } from './mortgageBiWeekly.service';
-
 
 
 describe('MortgageBiWeeklyService', () => {
@@ -12,7 +10,7 @@ describe('MortgageBiWeeklyService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MortgageBiWeeklyService, { provide: MortgageAbstract, useClass: MortgageAbstractMock }],
+      providers: [MortgageBiWeeklyService, { provide: MortgageAbstract, useClass: MortgageBiWeeklyService }],
     }).compile();
 
     service = module.get<MortgageBiWeeklyService>(MortgageBiWeeklyService);

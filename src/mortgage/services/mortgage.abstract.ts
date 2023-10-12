@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { MortgageDto } from '../dtos/mortgage.dto';
 import { SchedulePayment } from '../dtos/schedulePayment.dto';
 
@@ -7,17 +8,23 @@ export abstract class MortgageAbstract {
 
   protected getMortgagePaymentPerPeriod(mortgage: MortgageDto) {
     return this.mortgageCalculator(
-      mortgage.propertyPrice - mortgage.downpayment,
+      this.getMortgagePrinciple(mortgage),
       this.getRate(mortgage.annualInterestRate),
       this.getPaymentNumber(mortgage.period),
     );
   }
 
   protected getMortgagePrinciple(mortgage: MortgageDto) {
+    const result = mortgage.propertyPrice - mortgage.downpayment;
+    if (result<=0)
+      throw new HttpException(
+        `Property price Should be greater than downpayment`,
+        HttpStatus.BAD_REQUEST
+      );
     return mortgage.propertyPrice - mortgage.downpayment;
   }
 
-  protected mortgageCalculator(
+  private mortgageCalculator(
     principal: number,
     interestRate: number,
     paymentNumberBasedOnPeriod: number,
@@ -30,12 +37,12 @@ export abstract class MortgageAbstract {
     );
   }
 
-  protected calculateRemainingBalence(
+  protected calculateRemainingBalance(
     mortgage: MortgageDto,
-    numberOfPaymentPast: number,
+    numberOfPaymentPast: number
   ) {
     return (
-      ((mortgage.propertyPrice - mortgage.downpayment) *
+      (this.getMortgagePrinciple(mortgage) *
         (Math.pow(
           1 + this.getRate(mortgage.annualInterestRate),
           this.getPaymentNumber(mortgage.period),
@@ -55,16 +62,12 @@ export abstract class MortgageAbstract {
   protected getSchedulePayment(mortgage: MortgageDto, payPerPeriod: number) {
     const schedulePayment: SchedulePayment[] = [];
     for (let i = 0; i < this.getPaymentNumber(mortgage.period); i++) {
-      const remainingBalence = this.calculateRemainingBalence(mortgage, i + 1);
+      const remainingBalence = this.calculateRemainingBalance(mortgage, i + 1);
       const payment = {
         payPerPeriod: `$${payPerPeriod.toFixed(2)}`,
         paymentNumber: i + 1,
         remainingBalence: `$${remainingBalence.toFixed(2)}`,
-        paidSoFarFromPrinciple: `$${(
-          mortgage.propertyPrice -
-          mortgage.downpayment -
-          remainingBalence
-        ).toFixed(2)}`,
+        paidSoFarFromPrinciple: `$${(this.getMortgagePrinciple(mortgage) - remainingBalence).toFixed(2)}`,
       };
       schedulePayment.push(payment);
     }

@@ -1,21 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MortgageWeeklyService } from './mortgageWeekly.service';
 import { MortgageAbstract } from './mortgage.abstract';
 import { MortgageDto } from '../dtos/mortgage.dto';
 import { PaymentScheduleType } from '../enum/paymentScheduleType';
+import { MortgageMonthlyService } from './mortgageMonthly.service';
 
 
-
-
-describe('MortgageWeeklyService', () => {
-  let service: MortgageWeeklyService;
+describe('MortgageMonthlyService', () => {
+  let service: MortgageMonthlyService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MortgageWeeklyService, { provide: MortgageAbstract, useClass: MortgageWeeklyService }],
+      providers: [MortgageMonthlyService, { provide: MortgageAbstract, useClass: MortgageMonthlyService }],
     }).compile();
 
-    service = module.get<MortgageWeeklyService>(MortgageWeeklyService);
+    service = module.get<MortgageMonthlyService>(MortgageMonthlyService);
   });
 
   it('should be defined', () => {
@@ -28,24 +26,24 @@ describe('MortgageWeeklyService', () => {
       downpayment: 35000,
       annualInterestRate: 5.4,
       period: 25,
-      paymentSchedule: PaymentScheduleType.WEEKLY
+      paymentSchedule: PaymentScheduleType.MONTHLY
   };
 
     const result = service.runCalculation(mortgageDto);
 
     expect(result).toBeDefined();
-    expect(result.type).toEqual(PaymentScheduleType.WEEKLY.toString());
+    expect(result.type).toEqual(PaymentScheduleType.MONTHLY.toString());
     expect(result.mortgage).toEqual("$565000");
     expect(result.schedulPayments[0].paymentNumber).toBe(1);
   });
 
   it('should getRate correctly',()=>{
-    const expectWeaklyRateForFivePercent = 0.0009;
-    expect(service.getRate(5)).toBeCloseTo(expectWeaklyRateForFivePercent);
+    const expectBiWeaklyRateForFivePercent = 0.0041;
+    expect(service.getRate(5)).toBeCloseTo(expectBiWeaklyRateForFivePercent);
   })
 
   it('should get payment number correctly',()=>{
-    const expectedPaymentNumberForFiveYears = 260;
+    const expectedPaymentNumberForFiveYears = 60;
     expect(service.getPaymentNumber(5)).toBe(expectedPaymentNumberForFiveYears);
   })
 
