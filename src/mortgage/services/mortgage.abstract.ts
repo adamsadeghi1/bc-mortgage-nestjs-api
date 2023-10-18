@@ -61,10 +61,12 @@ export abstract class MortgageAbstract {
 
   protected getSchedulePayment(mortgage: MortgageDto, payPerPeriod: number) {
     const schedulePayment: SchedulePayment[] = [];
-    for (let i = 0; i < this.getPaymentNumber(mortgage.period); i++) {
+    const paymentNumber = this.getPaymentNumber(mortgage.period);
+
+    for (let i = 0; i < paymentNumber; i++) {
       const remainingBalence = this.calculateRemainingBalance(mortgage, i + 1);
       const payment = {
-        payPerPeriod: `$${payPerPeriod.toFixed(2)}`,
+        payPerPeriod: i + 1 === paymentNumber  ? `$${this.calculateRemainingBalance(mortgage, i).toFixed(2)}` : `$${payPerPeriod.toFixed(2)}`,
         paymentNumber: i + 1,
         remainingBalence: `$${remainingBalence.toFixed(2)}`,
         paidSoFarFromPrinciple: `$${(

@@ -9,5 +9,7 @@ export class MortgagePayment {
   @ApiProperty()
   mortgagePayment: string;
   @ApiProperty()
+  paymentNumber: number;
+  @ApiProperty()
   schedulPayments: SchedulePayment[];
 }

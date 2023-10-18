@@ -24,6 +24,7 @@ export class MortgageWeeklyService
       type: PaymentScheduleType.WEEKLY.toString(),
       mortgage: `$${super.getMortgagePrinciple(mortgage)}`,
       mortgagePayment: `$${payPerPeriod.toFixed(2)}`,
+      paymentNumber: this.getPaymentNumber(mortgage.period),
       schedulPayments: super.getSchedulePayment(mortgage, payPerPeriod),
     };
 

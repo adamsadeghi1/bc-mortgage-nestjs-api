@@ -49,11 +49,5 @@ export class MortgageDto {
   )
   paymentSchedule: PaymentScheduleType;
 
-  // constructor( downpayment, annualInterestRate,period, propertyPrice, paymentSchedule){
-  //     this.downpayment = downpayment;
-  //     this.annualInterestRate =annualInterestRate;
-  //     this.period = period;
-  //     this.propertyPrice = propertyPrice;
-  //     this.paymentSchedule = paymentSchedule;
-  // }
+
 }
