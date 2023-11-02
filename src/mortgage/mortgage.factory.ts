@@ -21,6 +21,9 @@ export class MortgageFactory {
   ) {}
 
   create() {
+    if (this.request.url!=="/api/mortgage" || this.request.method !== "POST")
+        return;
+
     if (!this.request.body.paymentSchedule)
       throw new HttpException(
         `Invalid payment schedule paymentSchedule shoud be one of these options case-insensitive : weekly| biweekly | monthly `,

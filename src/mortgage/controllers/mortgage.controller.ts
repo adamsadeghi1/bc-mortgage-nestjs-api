@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MortgageToken } from '../constants/mortgage.constant';
 import { MortgageDto } from '../dtos/mortgage.dto';
@@ -12,8 +12,17 @@ export class MortgageController {
     @Inject(MortgageToken)
     private readonly mortgageCalculate: MortgageCalculate,
   ) {}
+  
+  @Get()
+  helloWorld(){
+    return 'Test End point like Hello world ';
+  }
 
   @Post()
+  @UsePipes(new ValidationPipe({
+    forbidUnknownValues: true,
+    transform: true
+}))
   @ApiResponse({
     status: 200,
     description: 'Mortgage Reponse',
